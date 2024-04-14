@@ -14,7 +14,7 @@ import React, { useState } from 'react';
 
 function MatrixMultiplicationCalculator() {
 
-  // State variables for matrix dimensions and values
+  // 1.State variables for matrix dimensions and values
 
   const [rowsA, setRowsA] = useState(2);
   const [colsA, setColsA] = useState(2);
@@ -24,7 +24,7 @@ function MatrixMultiplicationCalculator() {
   const [matrixB, setMatrixB] = useState(Array.from({ length: 2 }, () => Array.from({ length: 2 }, () => 0)));
   const [result, setResult] = useState(Array.from({ length: 2 }, () => Array.from({ length: 2 }, () => 0)));
 
-  // Function to handle changes in the number of rows
+  // 2.Function to handle changes in the number of rows
 
   const handleRowsChange = (event, matrix) => {
     const value = parseInt(event.target.value);
@@ -36,7 +36,7 @@ function MatrixMultiplicationCalculator() {
   };
 
 
-  // Function to handle changes in the number of columns
+  // 3.Function to handle changes in the number of columns
 
   const handleColsChange = (event, matrix) => {
     const value = parseInt(event.target.value);
@@ -47,7 +47,7 @@ function MatrixMultiplicationCalculator() {
     }
   };
 
-  // Function to handle changes in matrix input values
+  // 4.Function to handle changes in matrix input values
 
 
   const handleMatrixInputChange = (event, rowIndex, colIndex, matrix) => {
@@ -63,7 +63,7 @@ function MatrixMultiplicationCalculator() {
     }
   };
 
-  // Function to multiply matrices
+  // 5.Function to multiply matrices
 
 
   const multiplyMatrices = () => {
