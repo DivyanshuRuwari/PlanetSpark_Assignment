@@ -1,0 +1,122 @@
+Coding Challenge #2
+
+
+Create a Matrix Multiplication Calculator Web App
+Note: Images included in this challenge are for illustration purposes only, you can develop the frontend according to your preference. 
+1. Create Frontend to get the input of two matrices (row and columns input should be dynamic) -
+Refer to the image below
+2. Create Controller Method(s) to get input, calculate and return the result
+
+
+CODE:-----------------------------------------------------------------------------------------------------------------------------------------------
+
+import React, { useState } from 'react';
+
+function MatrixMultiplicationCalculator() {
+  const [rowsA, setRowsA] = useState(2);
+  const [colsA, setColsA] = useState(2);
+  const [rowsB, setRowsB] = useState(2);
+  const [colsB, setColsB] = useState(2);
+  const [matrixA, setMatrixA] = useState(Array.from({ length: 2 }, () => Array.from({ length: 2 }, () => 0)));
+  const [matrixB, setMatrixB] = useState(Array.from({ length: 2 }, () => Array.from({ length: 2 }, () => 0)));
+  const [result, setResult] = useState(Array.from({ length: 2 }, () => Array.from({ length: 2 }, () => 0)));
+
+  const handleRowsChange = (event, matrix) => {
+    const value = parseInt(event.target.value);
+    if (matrix === 'A') {
+      setRowsA(value);
+    } else {
+      setRowsB(value);
+    }
+  };
+
+  const handleColsChange = (event, matrix) => {
+    const value = parseInt(event.target.value);
+    if (matrix === 'A') {
+      setColsA(value);
+    } else {
+      setColsB(value);
+    }
+  };
+
+  const handleMatrixInputChange = (event, rowIndex, colIndex, matrix) => {
+    const value = parseInt(event.target.value);
+    if (matrix === 'A') {
+      const updatedMatrix = [...matrixA];
+      updatedMatrix[rowIndex][colIndex] = value;
+      setMatrixA(updatedMatrix);
+    } else {
+      const updatedMatrix = [...matrixB];
+      updatedMatrix[rowIndex][colIndex] = value;
+      setMatrixB(updatedMatrix);
+    }
+  };
+
+  const multiplyMatrices = () => {
+    const newResult = Array.from({ length: rowsA }, () => Array.from({ length: colsB }, () => 0));
+    for (let i = 0; i < rowsA; i++) {
+      for (let j = 0; j < colsB; j++) {
+        for (let k = 0; k < colsA; k++) {
+          newResult[i][j] += matrixA[i][k] * matrixB[k][j];
+        }
+      }
+    }
+    setResult(newResult);
+  };
+
+  return (
+    <div>
+      <h2>Matrix Multiplication Calculator</h2>
+      <div>
+        <label>Matrix A:</label>
+        <input type="number" value={rowsA} onChange={(e) => handleRowsChange(e, 'A')} />
+        <input type="number" value={colsA} onChange={(e) => handleColsChange(e, 'A')} />
+        {matrixA.map((row, rowIndex) => (
+          <div key={`rowA${rowIndex}`}>
+            {row.map((col, colIndex) => (
+              <input
+                key={`colA${colIndex}`}
+                type="number"
+                value={matrixA[rowIndex][colIndex]}
+                onChange={(e) => handleMatrixInputChange(e, rowIndex, colIndex, 'A')}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+      <div>
+        <label>Matrix B:</label>
+        <input type="number" value={rowsB} onChange={(e) => handleRowsChange(e, 'B')} />
+        <input type="number" value={colsB} onChange={(e) => handleColsChange(e, 'B')} />
+        {matrixB.map((row, rowIndex) => (
+          <div key={`rowB${rowIndex}`}>
+            {row.map((col, colIndex) => (
+              <input
+                key={`colB${colIndex}`}
+                type="number"
+                value={matrixB[rowIndex][colIndex]}
+                onChange={(e) => handleMatrixInputChange(e, rowIndex, colIndex, 'B')}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+      <button onClick={multiplyMatrices}>Calculate</button>
+      <div>
+        <h3>Result:</h3>
+        {result.map((row, rowIndex) => (
+          <div key={`resultRow${rowIndex}`}>
+            {row.map((col, colIndex) => (
+              <span key={`resultCol${colIndex}`}>{col}&nbsp;&nbsp;</span>
+            ))}
+            <br />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default MatrixMultiplicationCalculator;
+
+
