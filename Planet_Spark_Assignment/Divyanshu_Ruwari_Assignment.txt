@@ -13,6 +13,7 @@ CODE:---------------------------------------------------------------------------
 import React, { useState } from 'react';
 
 function MatrixMultiplicationCalculator() {
+  // State variables for matrix dimensions and values
   const [rowsA, setRowsA] = useState(2);
   const [colsA, setColsA] = useState(2);
   const [rowsB, setRowsB] = useState(2);
@@ -21,6 +22,7 @@ function MatrixMultiplicationCalculator() {
   const [matrixB, setMatrixB] = useState(Array.from({ length: 2 }, () => Array.from({ length: 2 }, () => 0)));
   const [result, setResult] = useState(Array.from({ length: 2 }, () => Array.from({ length: 2 }, () => 0)));
 
+  // Function to handle changes in the number of rows
   const handleRowsChange = (event, matrix) => {
     const value = parseInt(event.target.value);
     if (matrix === 'A') {
@@ -30,6 +32,7 @@ function MatrixMultiplicationCalculator() {
     }
   };
 
+  // Function to handle changes in the number of columns
   const handleColsChange = (event, matrix) => {
     const value = parseInt(event.target.value);
     if (matrix === 'A') {
@@ -39,6 +42,7 @@ function MatrixMultiplicationCalculator() {
     }
   };
 
+  // Function to handle changes in matrix input values
   const handleMatrixInputChange = (event, rowIndex, colIndex, matrix) => {
     const value = parseInt(event.target.value);
     if (matrix === 'A') {
@@ -52,6 +56,7 @@ function MatrixMultiplicationCalculator() {
     }
   };
 
+  // Function to multiply matrices
   const multiplyMatrices = () => {
     const newResult = Array.from({ length: rowsA }, () => Array.from({ length: colsB }, () => 0));
     for (let i = 0; i < rowsA; i++) {
@@ -67,6 +72,7 @@ function MatrixMultiplicationCalculator() {
   return (
     <div>
       <h2>Matrix Multiplication Calculator</h2>
+      {/* Matrix A input */}
       <div>
         <label>Matrix A:</label>
         <input type="number" value={rowsA} onChange={(e) => handleRowsChange(e, 'A')} />
@@ -84,6 +90,7 @@ function MatrixMultiplicationCalculator() {
           </div>
         ))}
       </div>
+      {/* Matrix B input */}
       <div>
         <label>Matrix B:</label>
         <input type="number" value={rowsB} onChange={(e) => handleRowsChange(e, 'B')} />
@@ -101,7 +108,9 @@ function MatrixMultiplicationCalculator() {
           </div>
         ))}
       </div>
+      {/* Button to calculate */}
       <button onClick={multiplyMatrices}>Calculate</button>
+      {/* Result display */}
       <div>
         <h3>Result:</h3>
         {result.map((row, rowIndex) => (
@@ -118,5 +127,3 @@ function MatrixMultiplicationCalculator() {
 }
 
 export default MatrixMultiplicationCalculator;
-
-
